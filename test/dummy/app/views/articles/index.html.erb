@@ -1,0 +1,12 @@
+<%= turbo_stream_from "articles" %>
+
+<h1>Articles</h1>
+
+<%= link_to "New article",
+             new_article_path,
+             data: { turbo_frame: dom_id(Article.new)} %>
+<%= turbo_frame_tag Article.new %>
+
+<div id="articles">
+  <%= render @articles %>
+</div>
