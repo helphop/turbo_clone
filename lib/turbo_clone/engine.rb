@@ -24,6 +24,13 @@ module TurboClone
       end
     end
 
+    initializer "turbo.broadcastable" do
+      ActiveSupport.on_load :active_record do
+        #every model will have access to this module
+        include TurboClone::Broadcastable
+      end
+    end
+
     initializer "turbo.integration_test_request_encoding" do
       ActiveSupport.on_load :action_dispatch_integration_test do
         class ActionDispatch::RequestEncoder
