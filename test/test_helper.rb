@@ -15,6 +15,7 @@ if ActiveSupport::TestCase.respond_to?(:fixture_path=)
 end
 
 module ActionViewTestCaseExtensions
+  #can call render instead of ApplicationController.render
   def render(*arguments, **options, &block)
     ApplicationController.render(*arguments, **options, &block)
   end
@@ -22,4 +23,8 @@ end
 
 class ActionDispatch::IntegrationTest
   include ActionViewTestCaseExtensions
+end
+
+class ActionCable::Channel::TestCase
+  include ActionViewTestCaseExtensions #↑ from the module
 end
