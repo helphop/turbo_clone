@@ -1,11 +1,10 @@
 module TurboClone::Streams::StreamsName
-
-
     #Notice the we do not use self. To make this a class method
     #since class or modules will use **extend** to use it
     #Example in the streams_channel.rb file
 
   def stream_name_from(streamables)
+    puts self
     if streamables.is_a?(Array)
       streamables.map { |streamable| stream_name_from(streamable)}.join(":")
     else
