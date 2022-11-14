@@ -4,7 +4,6 @@ module TurboClone::Streams::StreamsName
     #Example in the streams_channel.rb file
 
   def stream_name_from(streamables)
-    puts self
     if streamables.is_a?(Array)
       streamables.map { |streamable| stream_name_from(streamable)}.join(":")
     else
