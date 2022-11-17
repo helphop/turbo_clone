@@ -1,5 +1,5 @@
 say "Import Turbo"
-append_to_file "app/javascript/application.js", %(import "@hotwired/turbo-rails")
+append_to_file "\n app/javascript/application.js", %(import "@hotwired/turbo-rails")
 
 say "Pin Turbo"
 run "./bin/importmap pin @hotwired/turbo-rails@7.1.1"
