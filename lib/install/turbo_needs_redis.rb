@@ -1,4 +1,4 @@
-if (cable_config_path = Rails.root.join("config/cable.yml")).exists?
+if (cable_config_path = Rails.root.join("config/cable.yml")).exist?
   say "Enable Redis in bundel"
   gemfile_content = File.read(Rails.root.join("Gemfile"))
   pattern = /gem ["']redis['"]/
