@@ -2,8 +2,7 @@ module TurboClone::Streams::Broadcasts
   include TurboClone::ActionHelper
 
   def broadcast_append_to(*streamables, **options)
-    #**options may include a target in addition to the partial and locals
-    #variables.
+    #**options may include a target in addition to the partial and locals variables.
     broadcast_action_to(*streamables, action: :append, **options)
   end
 
@@ -23,6 +22,14 @@ module TurboClone::Streams::Broadcasts
     broadcast_action_later_to(*streamables, action: :append, **options)
   end
 
+  def broadcast_prepend_later_to(*streamables, **options)
+    broadcast_action_later_to(*streamables, action: :prepend, **options)
+  end
+
+  def broadcast_replace_later_to(*streamables, **options)
+    broadcast_action_later_to(*streamables, action: :replace, **options)
+  end
+
   #**rendering captures the partials and locals that are passed to the broadcast_append_to method
   #usually in the form of partial: 'articles/article', locals: { article: @article}
   #we know a lot about the **options variable since we use target: as a variable
@@ -35,12 +42,12 @@ module TurboClone::Streams::Broadcasts
 
   def broadcast_action_later_to(*streamables, action:, target: nil, **rendering)
     TurboClone::Streams::ActionBroadcastJob.perform_later(
-      stream_name_from:(streamables), action: action, target: target, **rendering
+      TurboClone::StreamsChannel.stream_name_from(streamables), action: action, target: target, **rendering
     )
   end
 
   def broadcast_stream_to(*streamables, content:)
-    ActionCable.server.broadcast stream_name_from(streamables), content
+    ActionCable.server.broadcast TurboClone::StreamsChannel.stream_name_from(streamables), content
   end
 
   private
